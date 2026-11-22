@@ -201,7 +201,7 @@ https://github.com/jyangfsu/WQChartPy
 
 ## Author
 
-Hydrochemical Data Visualization Project
+Charan Bhattarai
 
 ## License
 
