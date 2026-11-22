@@ -1,75 +1,178 @@
 
 # Piper Diagram Generation Using Python and WQChartPy
 
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Analysis](https://img.shields.io/badge/Analysis-Hydrochemistry-green)
+![Visualization](https://img.shields.io/badge/Visualization-Piper%20Diagram-orange)
+![Platform](https://img.shields.io/badge/Platform-Google%20Colab-yellow)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
+
 ## Overview
 
-This repository provides a reproducible Python workflow for generating Piper trilinear diagrams from hydrochemical water-quality data using the WQChartPy library.
+This project provides a reproducible Python workflow for hydrochemical data processing and Piper trilinear diagram generation using the WQChartPy library.
 
-The workflow is designed for groundwater and surface-water hydrochemical characterization and supports the visualization of major cations and anions across different rivers, sampling locations, and seasons.
+The workflow is designed to analyze major-ion chemistry in groundwater and surface-water samples and visualize hydrochemical composition across different rivers and sampling seasons.
 
-## Objectives
+The initial application focuses on three river systems:
 
-- Process and clean water chemistry datasets.
-- Convert major ion concentrations from mg/L to meq/L.
-- Calculate cation and anion composition percentages.
-- Visualize hydrochemical characteristics using Piper diagrams.
-- Compare hydrochemical composition across rivers and seasons.
+- Sirsiya River
+- Bagmati River
+- Guang River
+
+The workflow can be adapted to other hydrochemical datasets by modifying the input data and river classification settings.
+
+## Key Features
+
+- CSV-based hydrochemical data import.
+- Automated data cleaning and preprocessing.
+- River and seasonal sample classification.
+- Conversion of major ions from mg/L to meq/L.
+- Calculation of cation and anion percentages.
+- Charge balance error (CBE) calculation.
+- Hydrochemical data quality screening.
+- Piper trilinear diagram generation.
+- River-specific colors and marker styles.
+- High-resolution PNG and PDF figure export.
+- Processed hydrochemical data export.
 
 ## Methodology
 
-The workflow consists of the following steps:
+### 1. Data Preparation
 
-1. Import hydrochemical data from CSV.
-2. Clean missing and non-numeric observations.
-3. Identify river and seasonal sampling categories.
-4. Convert major ions into milliequivalents per liter (meq/L).
-5. Calculate cation and anion percentages.
-6. Prepare the required input format for WQChartPy.
-7. Generate Piper trilinear diagrams.
-8. Export figures in high-resolution PNG format.
+Major-ion concentrations are imported from a CSV file.
 
-## Chemical Parameters
+### 2. Data Cleaning
 
-### Major Cations
+Non-numeric values, missing observations and invalid negative concentrations are handled during preprocessing.
 
-- Calcium (Ca2+)
-- Magnesium (Mg2+)
-- Sodium (Na+)
-- Potassium (K+)
+### 3. River and Seasonal Classification
 
-### Major Anions
+Samples are classified using sample identification codes.
 
-- Bicarbonate (HCO3-)
-- Carbonate (CO3 2-)
-- Chloride (Cl-)
-- Sulfate (SO4 2-)
+| River code | River |
+|---|---|
+| SK | Sirsiya |
+| BK | Bagmati |
+| GK | Guang |
+
+Seasonal classification:
+
+- M = Monsoon
+- NM = Non-Monsoon
+
+### 4. Conversion to Milliequivalents
+
+Major-ion concentrations are converted from mg/L to meq/L.
+
+Cations:
+
+Ca (meq/L) = Ca (mg/L) / 20.04
+
+Mg (meq/L) = Mg (mg/L) / 12.15
+
+Na (meq/L) = Na (mg/L) / 22.99
+
+K (meq/L) = K (mg/L) / 39.10
+
+Anions:
+
+HCO3 (meq/L) = HCO3 (mg/L) / 61.02
+
+SO4 (meq/L) = SO4 (mg/L) / 48.03
+
+Cl (meq/L) = Cl (mg/L) / 35.45
+
+Carbonate is assumed to be zero in the default workflow unless measured values are available.
+
+### 5. Ionic Composition
+
+Cation percentages:
+
+Ca (%) = Ca (meq/L) / Total cations × 100
+
+Mg (%) = Mg (meq/L) / Total cations × 100
+
+Na (%) = Na (meq/L) / Total cations × 100
+
+K (%) = K (meq/L) / Total cations × 100
+
+Anion percentages are calculated similarly using total anions.
+
+### 6. Charge Balance Error
+
+Charge balance error is calculated as:
+
+CBE (%) = [(Σ Cations - Σ Anions) / (Σ Cations + Σ Anions)] × 100
+
+A value within ±5% is used as a common preliminary screening criterion. Samples outside this range are flagged rather than automatically removed.
+
+### 7. Piper Diagram
+
+The WQChartPy triangle_piper module generates the Piper trilinear diagram using original major-ion concentrations in mg/L.
+
+The diagram is used to examine the relative composition of major cations and anions and identify hydrochemical facies.
 
 ## Installation
 
-Install the required libraries:
+Clone the repository:
+
+```bash
+git clone https://github.com/YOUR-USERNAME/Piper-Diagram-Water-Chemistry.git
+```
+
+Navigate into the project:
+
+```bash
+cd Piper-Diagram-Water-Chemistry
+```
+
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+## Running the Analysis
 
-1. Download or clone this repository.
-2. Open `Piper_Diagram_WQChartPy.ipynb` in Google Colab.
-3. Upload your hydrochemical CSV dataset.
-4. Check that the column names match the expected format.
-5. Run all notebook cells.
-6. Find the generated Piper diagram in the output directory.
+Place your CSV input file in the project root directory.
 
-## Input Data
+Ensure the filename matches the configuration in `piper_diagram.py`.
 
-The input dataset must contain major ion concentrations in mg/L.
+Run:
 
-A sample CSV template will be provided in the data directory.
+```bash
+python piper_diagram.py
+```
 
-## Output
+## Google Colab
 
-The workflow generates high-resolution Piper diagrams in PNG format.
+The workflow can also be used in Google Colab.
+
+1. Upload the notebook.
+2. Install the dependencies.
+3. Upload your hydrochemical CSV file.
+4. Execute the notebook cells.
+5. Download the generated figures and processed datasets.
+
+## Expected Outputs
+
+### Figures
+
+- Piper_Diagram.png
+- Piper_Diagram.pdf
+
+### Processed datasets
+
+- Hydrochemical_Processed_Data.csv
+- Charge_Balance_Report.csv
+
+## River Visualization
+
+| River | Color | Marker |
+|---|---|---|
+| Sirsiya | Red | Triangle |
+| Bagmati | Blue | Square |
+| Guang | Green | Diamond |
 
 ## Software and Libraries
 
@@ -77,20 +180,29 @@ The workflow generates high-resolution Piper diagrams in PNG format.
 - Pandas
 - NumPy
 - Matplotlib
+- SciPy
+- Scikit-learn
 - WQChartPy
-- Google Colab
 
-## Scientific Reference
+## Scientific References
 
 Piper, A. M. (1944). A Graphic Procedure in the Geochemical Interpretation of Water-Analyses. Eos, Transactions American Geophysical Union, 25, 914–928.
 
 WQChartPy:
 https://github.com/jyangfsu/WQChartPy
 
+## Limitations
+
+- Carbonate concentration is assumed to be zero by default.
+- The accuracy of hydrochemical interpretation depends on the quality of laboratory measurements.
+- Charge balance screening does not replace laboratory quality assurance.
+- The calculated TDS in this workflow is the sum of the selected major-ion concentrations, not an independent laboratory TDS measurement.
+- Hydrochemical facies should be interpreted with supporting geochemical and environmental evidence.
+
 ## Author
 
-Hydrochemical Data Visualization and Piper Diagram Workflow.
+Hydrochemical Data Visualization Project
 
 ## License
 
-This project is distributed under the MIT License.
+This project is licensed under the MIT License.
