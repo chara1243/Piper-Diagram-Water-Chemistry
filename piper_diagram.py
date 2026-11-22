@@ -57,16 +57,16 @@ DPI = 300
 
 # River classification
 RIVER_NAMES = {
-    "SK": "Sirsiya",
-    "BK": "Bagmati",
-    "GK": "Guang"
+    "A": "ABC",
+    "B": "ABCD",
+    "C": "ABCDE"
 }
 
 # Marker customization
 RIVER_MARKERS = {
-    "Sirsiya": "^",
-    "Bagmati": "s",
-    "Guang": "D"
+    "A": "^",
+    "B": "s",
+    "C": "D"
 }
 
 
