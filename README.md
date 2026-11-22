@@ -15,9 +15,9 @@ The workflow is designed to analyze major-ion chemistry in groundwater and surfa
 
 The initial application focuses on three river systems:
 
-- Sirsiya River
-- Bagmati River
-- Guang River
+- A River
+- B River
+- C River
 
 The workflow can be adapted to other hydrochemical datasets by modifying the input data and river classification settings.
 
@@ -51,9 +51,9 @@ Samples are classified using sample identification codes.
 
 | River code | River |
 |---|---|
-| SK | Sirsiya |
-| BK | Bagmati |
-| GK | Guang |
+A 
+B
+C
 
 Seasonal classification:
 
