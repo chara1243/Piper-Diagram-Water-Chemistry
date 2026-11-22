@@ -170,9 +170,9 @@ The workflow can also be used in Google Colab.
 
 | River | Color | Marker |
 |---|---|---|
-| Sirsiya | Red | Triangle |
-| Bagmati | Blue | Square |
-| Guang | Green | Diamond |
+| A | Red | Triangle |
+| B | Blue | Square |
+| C | Green | Diamond |
 
 ## Software and Libraries
 
